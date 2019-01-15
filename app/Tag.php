@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Tag extends Model
 {
     protected $fillable = [
-        'article_id', 'tag_id',
+        'name', 'user_id'
+    ];
+    protected $hidden = [
+        'created_at', 'updated_at',
     ];
 }

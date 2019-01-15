@@ -19,4 +19,14 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
     protected $dates = ['deleted_at'];
+
+    /** Relationship */
+    public function articles()
+    {
+        return $this->hasMany('App\Article', 'user_id', 'id');
+    }
+    public function tags()
+    {
+        return $this->hasMany('App\Tag', 'user_id', 'id');
+    }
 }

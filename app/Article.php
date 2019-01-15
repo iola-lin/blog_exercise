@@ -12,4 +12,5 @@ class Article extends Model
     protected $fillable = [
         'title', 'content', 'user_id',
     ];
+    protected $dates = ['deleted_at'];
 }
