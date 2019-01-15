@@ -13,8 +13,11 @@
 @section('content')
 
     <div class="custom-border">
+        
         <div>
-            <button type="button" class="btn btn-primary"><a herf="/articles/create">Create</a></button>
+            <a href="/articles/create">
+                <button type="button" class="btn btn-primary">Create</button>
+            </a>
         </div>
         
         <br>
@@ -22,8 +25,6 @@
         <table class="table">
             <thead>
                 <tr>
-                    {{-- checkbox --}}
-                    <th scope="col"></th>
                     {{-- edit btn --}}
                     <th scope="col"></th>
                     {{-- delete btn --}}
@@ -41,8 +42,9 @@
                 @inject('dateTimeFormatPresenter', 'App\Presenters\DateTimeFormatPresenter')
                 @foreach ($articles as $article)
                 <tr>
-                    <td><input type="checkbox"></td>
-                    <td><i class="fas fa-edit"></i></td>
+                    <td>
+                        <a href="/articles/{{ $article->id }}/edit"><i class="fas fa-edit"></i></a>
+                    </td>
                     <td>
                         <a href="/articles/{{ $article->id }}" data-method="DELETE" data-token="{{csrf_token()}}" data-confirm="Are you sure?">
                             <i class="fas fa-trash-alt"></i>

@@ -18,4 +18,8 @@ class Tag extends Model
     {
         return $this->belongsToMany('App\Article', 'article_tag', 'tag_id', 'article_id');
     }
+    public function user()
+    {
+        return $this->belongsTo('App\User', 'user_id');
+    }
 }

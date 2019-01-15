@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\User;
 
 class ArticleSeeder extends Seeder
 {
@@ -15,8 +14,8 @@ class ArticleSeeder extends Seeder
         /**
          * specify "Tag"
          */
-        $user = User::first();
         $tag = factory(App\Tag::class)->create();
+        $user = $tag->user()->first();
         $articles = factory(App\Article::class, 20)->create(['user_id' => $user->id]);
         $tag->articles()->sync($articles->pluck('id')->all());
     }

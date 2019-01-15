@@ -62,7 +62,7 @@ class ArticleController extends Controller
     public function show($id)
     {
         // FIXME: specify user's
-        $article = Article::with('tags')->find($id);
+        $article = Article::find($id);
         return view('articles.info', ['article' => $article]);
     }
 
@@ -74,7 +74,8 @@ class ArticleController extends Controller
      */
     public function edit($id)
     {
-        //
+        $article = Article::with('tags')->find($id);
+        return view('articles.edit', ['article' => $article]);
     }
 
     /**
@@ -86,7 +87,16 @@ class ArticleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $article = Article::find($id);
+        $article->update([
+            'title' => $request->title,
+            'content' => $request->content
+        ]);
+
+        $tags_id = $request->tags;
+        $article->tags()->sync($tags_id);
+
+        return redirect('/articles/'.$article->id);
     }
 
     /**

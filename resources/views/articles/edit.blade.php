@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'Create Article')
+@section('title', 'Edit Article')
 
 @section('custom_css')
     @component('components.form_css')
@@ -20,15 +20,21 @@
     </div>
 
     <div class="custom-border">
-        <form method="POST" action="/articles">
+
+        <form method="POST" action="/articles/{{ $article->id }}">
             @csrf
+            {{-- change to PUT method --}}
+            <input type="hidden" name="_method" value="PUT">
+
             <div class="form-group">
             <label for="title">標題</label>
-            <input type="text" class="form-control" name="title" id="title" placeholder="輸入文章標題">
+            <input type="text" class="form-control" name="title" id="title" placeholder="輸入文章標題" value="{{ $article->title }}">
             </div>
             <div class="form-group">
                 <label for="content">內文</label>
-                <textarea class="form-control" name="content" id="content" rows="10"></textarea>
+                <textarea class="form-control" name="content" id="content" rows="10">
+                    {!! $article->content !!}
+                </textarea>
             </div>
             <div class="form-group">
                 <label for="tags">標籤</label>
@@ -65,6 +71,9 @@
         $('#tags').select2();
 
         var tagSelect = $('#tags');
+        var selectedTagsId = {!! json_encode($tagPresenter->getSelectedTagsIdByArticle($article)) !!}
+        tagSelect.val(selectedTagsId);
+        tagSelect.trigger('change');
 
         $('#createNewTag').popover('hide');
 
