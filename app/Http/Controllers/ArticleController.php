@@ -61,9 +61,14 @@ class ArticleController extends Controller
      */
     public function show($id)
     {
-        // FIXME: specify user's
+        // TODO: change to something like policy or middleware
+        $user = auth()->user();
         $article = Article::find($id);
-        return view('articles.info', ['article' => $article]);
+        if ($user->id === $article->user_id) {
+            return view('articles.info', ['article' => $article]);
+        } else {
+            abort(403);
+        }
     }
 
     /**
@@ -74,8 +79,14 @@ class ArticleController extends Controller
      */
     public function edit($id)
     {
+        // TODO: change to something like policy or middleware
+        $user = auth()->user();
         $article = Article::with('tags')->find($id);
-        return view('articles.edit', ['article' => $article]);
+        if ($user->id === $article->user_id) {
+            return view('articles.edit', ['article' => $article]);
+        } else {
+            abort(403);
+        }
     }
 
     /**
@@ -87,16 +98,22 @@ class ArticleController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // TODO: change to something like policy or middleware
+        $user = auth()->user();
         $article = Article::find($id);
-        $article->update([
-            'title' => $request->title,
-            'content' => $request->content
-        ]);
+        if ($user->id === $article->user_id) {
+            $article->update([
+                'title' => $request->title,
+                'content' => $request->content
+            ]);
 
-        $tags_id = $request->tags;
-        $article->tags()->sync($tags_id);
+            $tags_id = $request->tags;
+            $article->tags()->sync($tags_id);
 
-        return redirect('/articles/'.$article->id);
+            return redirect('/articles/'.$article->id);
+        } else {
+            abort(403);
+        }
     }
 
     /**
@@ -107,7 +124,14 @@ class ArticleController extends Controller
      */
     public function destroy($id)
     {
-        Article::find($id)->delete();
-        return back()->withInput();
+        // TODO: change to something like policy or middleware
+        $user = auth()->user();
+        $article = Article::find($id);
+        if ($user->id === $article->user_id) {
+            $article->delete();
+            return back()->withInput();
+        } else {
+            abort(403);
+        }
     }
 }

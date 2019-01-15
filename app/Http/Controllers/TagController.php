@@ -56,8 +56,13 @@ class TagController extends Controller
      */
     public function show($id)
     {
+        $user = auth()->user();
         $tag = Tag::find($id);
-        return view('tags.info', ['tag' => $tag]);
+        if ($user->id === $tag->user_id) {
+            return view('tags.info', ['tag' => $tag]);
+        } else {
+            abort(403);
+        }
     }
 
     /**
