@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Presenter;
+namespace App\Presenters;
 
 use App\User;
 

@@ -12,4 +12,10 @@ class Tag extends Model
     protected $hidden = [
         'created_at', 'updated_at',
     ];
+
+    /** Relationship */
+    public function articles()
+    {
+        return $this->belongsToMany('App\Article', 'article_tag', 'tag_id', 'article_id');
+    }
 }

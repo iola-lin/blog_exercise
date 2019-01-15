@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <div style="margin:5rem">
+    <div class="custom-border">
         <div class="title">
             <h2>{{ $article->title }}</h2>
         </div>

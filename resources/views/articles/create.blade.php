@@ -15,7 +15,7 @@
 
 @section('content')
 
-    <div style="margin:5rem">
+    <div class="custom-border">
         <form method="POST" action="/articles">
             @csrf
             <div class="form-group">
@@ -28,7 +28,7 @@
             </div>
             <div class="form-group">
                 <label for="tags">標籤</label>
-                @inject('tagPresenter', 'App\Presenter\TagPresenter')
+                @inject('tagPresenter', 'App\Presenters\TagPresenter')
                 <select class="form-control" name="tags[]" id="tags" multiple="multiple">
                     @foreach ($tagPresenter->getTagsByUser(auth()->user()) as $tag)
                     <option value="{{ $tag->id }}">{{ $tag->name }}</option>

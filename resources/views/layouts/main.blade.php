@@ -17,6 +17,12 @@
 
     @yield('custom_css')
 
+    <style>
+        .custom-border {
+            margin:5rem;
+        }
+    </style>
+
 </head>
 <body>
 

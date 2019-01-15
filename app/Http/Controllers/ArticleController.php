@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Article;
+use App\User;
 
 class ArticleController extends Controller
 {
@@ -59,7 +60,8 @@ class ArticleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
+{
+        // FIXME: specify user's
         $article = Article::with('tags')->find($id);
         return view('articles.info', ['article' => $article]);
     }
