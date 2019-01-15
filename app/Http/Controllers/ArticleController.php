@@ -15,11 +15,9 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        // FIXME: from HARD CODE to real user
-        $user = User::first();
-
-        $articles = $user->articles()->get();
-        return view('articles.list', ['article' => $articles]);
+        $user = auth()->user();
+        $articles = $user->articles()->paginate(5);
+        return view('articles.list', ['articles' => $articles]);
     }
 
     /**
@@ -58,9 +56,11 @@ class ArticleController extends Controller
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
+     * 
+     * @TODO: 處理line break的顯示
      */
     public function show($id)
-{
+    {
         // FIXME: specify user's
         $article = Article::with('tags')->find($id);
         return view('articles.info', ['article' => $article]);
@@ -97,6 +97,7 @@ class ArticleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Article::find($id)->delete();
+        return back()->withInput();
     }
 }

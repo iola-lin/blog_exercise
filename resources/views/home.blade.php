@@ -17,6 +17,19 @@
                     You are logged in!
                 </div>
             </div>
+            <br>
+            <div class="card">
+                <div class="card-header">Blogging</div>
+
+                <div class="card-body">
+                    <div class="btn">
+                        <button><a href="/articles">All Articles</a></button>
+                    </div>
+                    <div class="btn">
+                        <button><a href="/tags">All Tags</a></button>
+                    </div>                    
+                </div>
+            </div>
         </div>
     </div>
 </div>
