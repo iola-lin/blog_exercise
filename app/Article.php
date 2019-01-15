@@ -13,4 +13,10 @@ class Article extends Model
         'title', 'content', 'user_id',
     ];
     protected $dates = ['deleted_at'];
+
+    /** Relationship */
+    public function tags()
+    {
+        return $this->belongsToMany('App\Tag', 'article_tag', 'article_id', 'tag_id');
+    }
 }

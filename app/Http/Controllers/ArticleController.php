@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Article;
 
 class ArticleController extends Controller
 {
@@ -38,10 +39,17 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        // FIXME: from HARD CODE to real user
-        $user = User::first();
+        $user = auth()->user();
 
-        
+        $article = $user->articles()->create([
+            'title' => $request->title,
+            'content' => $request->content
+        ]);
+
+        $tags_id = $request->tags;
+        $article->tags()->attach($tags_id);
+
+        return redirect('/articles/'.$article->id);
     }
 
     /**
@@ -52,7 +60,8 @@ class ArticleController extends Controller
      */
     public function show($id)
     {
-        //
+        $article = Article::with('tags')->find($id);
+        return view('articles.info', ['article' => $article]);
     }
 
     /**
