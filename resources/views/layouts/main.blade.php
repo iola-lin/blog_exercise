@@ -7,7 +7,7 @@
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
     
-    <title>@yield('title') - HiSKIO Blog</title>
+    <title>@yield('title') - Blog</title>
 
     {{-- Bootstrap --}}
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" 
