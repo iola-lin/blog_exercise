@@ -19,6 +19,10 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::post('/resetFixedPassword', 'Auth\ResetPasswordController@resetFixedPassword');
+
+Route::post('/verified', 'UserController@verified')->middleware('auth');
+
 Route::resource('articles', 'ArticleController')->middleware('auth');
 
 Route::resource('tags', 'TagController')->middleware('auth');

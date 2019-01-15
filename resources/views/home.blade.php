@@ -15,6 +15,14 @@
                     @endif
 
                     You are logged in!
+
+                    <form method="POST" action="/verified">
+                        @csrf
+                        <div class="btn">
+                            <button>Verified Me</button>
+                        </div>
+                    </form>
+                     
                 </div>
             </div>
             <br>

@@ -67,6 +67,13 @@
                     </form>
                 </div>
             </div>
+
+            @if(session('reset_password'))
+                <div class="alert alert-success" role="alert">
+                    Password has reset to "fixed password"
+                </div>
+            @endif
+
         </div>
     </div>
 </div>

@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    <form method="POST" action="/resetFixedPassword">
+                    <form method="POST" action="{{ route('password.email') }}">
                         @csrf
 
                         <div class="form-group row">
@@ -34,18 +34,13 @@
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('Reset Password to "fixed password"') }}
+                                    {{ __('Send Password Reset Link') }}
                                 </button>
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
-            @if(session('error_email') !== "")
-                <div class="alert alert-danger" role="alert">
-                    {{ session('error_email') }}
-                </div>
-            @endif
         </div>
     </div>
 </div>
