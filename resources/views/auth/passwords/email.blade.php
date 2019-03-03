@@ -41,9 +41,10 @@
                     </form>
                 </div>
             </div>
-            @if(session('error_email') !== "")
+            {{-- @if(session('error_email') != "") --}}
+            @if($errors->has('user'))
                 <div class="alert alert-danger" role="alert">
-                    {{ session('error_email') }}
+                    {{ $errors->first('user') }}
                 </div>
             @endif
         </div>

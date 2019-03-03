@@ -44,15 +44,16 @@ class ResetPasswordController extends Controller
         $email = $request->email;
         $user = User::where('email', $email)->first();
         if (empty($user)) {
-            session(['error_email' => 'no such email.']);
-            return back()->withInput();
+            return back()->withInput()
+                ->withErrors(['user' => 'no such email.']);
         }
         $user->update([
             'password' => \Hash::make("fixed password"),
         ]);
 
-        session(['reset_password' => true]);
-
+        // flash data
+        $request->session()->flash('reset_password', true);
         return redirect('/login');
+            // ->with(['reset_password', true]);  //this doesn't show up
     }
 }
