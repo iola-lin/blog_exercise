@@ -27,7 +27,7 @@
 <body>
 
     <div style="float:right; margin-right:5rem;">
-        <a href="/home"><button class="btn btn-info">Back To Home</button></a>
+        <a href="/"><button class="btn btn-info">Back To Home</button></a>
     </div>
 
     @yield('content')

@@ -15,6 +15,6 @@ class UserController extends Controller
                 'verified_at' => Carbon::now() 
             ]);
         }
-        return redirect('/home');
+        return redirect('/');
     }
 }
