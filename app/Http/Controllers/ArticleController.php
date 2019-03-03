@@ -2,12 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Article;
-use App\User;
+use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
+    /**
+     * Resource controller has to type hinting resource name to using resource policy
+     * (Q. what if input resource $id at route?)
+     * FIND OUT the mapping method at Illuminate\Foundation\Auth\Access\AuthorizesRequests
+     * ex. 'index' belongs to method without model
+     */
+    public function __construct()
+    {
+        $this->authorizeResource(Article::class, 'article');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -54,84 +64,54 @@ class ArticleController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Article  $article
      * @return \Illuminate\Http\Response
-     * 
-     * @TODO: 處理line break的顯示
      */
-    public function show($id)
+    public function show(Article $article)
     {
-        // TODO: change to something like policy or middleware
-        $user = auth()->user();
-        $article = Article::find($id);
-        if ($user->id === $article->user_id) {
-            return view('articles.info', ['article' => $article]);
-        } else {
-            abort(403);
-        }
+        return view('articles.info', ['article' => $article]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Article $article)
     {
-        // TODO: change to something like policy or middleware
-        $user = auth()->user();
-        $article = Article::with('tags')->find($id);
-        if ($user->id === $article->user_id) {
-            return view('articles.edit', ['article' => $article]);
-        } else {
-            abort(403);
-        }
+        return view('articles.edit', ['article' => $article]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Article $article)
     {
-        // TODO: change to something like policy or middleware
-        $user = auth()->user();
-        $article = Article::find($id);
-        if ($user->id === $article->user_id) {
-            $article->update([
-                'title' => $request->title,
-                'content' => $request->content
-            ]);
+        $article->update([
+            'title' => $request->title,
+            'content' => $request->content
+        ]);
 
-            $tags_id = $request->tags;
-            $article->tags()->sync($tags_id);
+        $tags_id = $request->tags;
+        $article->tags()->sync($tags_id);
 
-            return redirect('/articles/'.$article->id);
-        } else {
-            abort(403);
-        }
+        return redirect('/articles/'.$article->id);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Article $article)
     {
-        // TODO: change to something like policy or middleware
-        $user = auth()->user();
-        $article = Article::find($id);
-        if ($user->id === $article->user_id) {
-            $article->delete();
-            return back()->withInput();
-        } else {
-            abort(403);
-        }
+        $article->delete();
+        return back()->withInput();
     }
 }
