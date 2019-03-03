@@ -16,12 +16,14 @@
 
                     You are logged in!
 
-                    <form method="POST" action="/verified">
-                        @csrf
-                        <div class="btn">
-                            <button>Verified Me</button>
-                        </div>
-                    </form>
+                    @unless($user->verified_at)
+                        <form method="POST" action="/verified">
+                            @csrf
+                            <div class="btn">
+                                <button>Verified Me</button>
+                            </div>
+                        </form>
+                    @endunless
                      
                 </div>
             </div>
