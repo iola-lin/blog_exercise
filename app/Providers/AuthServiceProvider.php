@@ -13,7 +13,8 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        'App\Model' => 'App\Policies\ModelPolicy',
+        'App\Article' => 'App\Policies\ArticlePolicy',
+        'App\Tag' => 'App\Policies\TagPolicy',
     ];
 
     /**
@@ -25,7 +26,9 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
+        // FIXME: Resource Gate 可寫可不寫欸??
         Gate::resource('articles', 'App\Policies\ArticlePolicy');
+        Gate::resource('tags', 'App\Policies\TagPolicy');
 
     }
 }

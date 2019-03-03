@@ -8,10 +8,12 @@ use Illuminate\Http\Request;
 class ArticleController extends Controller
 {
     /**
+     * NOTES:
      * Resource controller has to type hinting resource name to using resource policy
      * (Q. what if input resource $id at route?)
      * FIND OUT the mapping method at Illuminate\Foundation\Auth\Access\AuthorizesRequests
      * ex. 'index' belongs to method without model
+     * - 可以去看route:list的middleware, withoutModel的那幾個方法的結果不太一樣(說好的看第二param呢)
      */
     public function __construct()
     {
